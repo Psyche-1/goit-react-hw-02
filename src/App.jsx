@@ -2,6 +2,7 @@
 import Description from './components/Description/Description'
 import Options from './components/Options/Options'
 import Feedback from './components/Feedback/Feedback'
+import Notification from './components/Notification/Notification'
 import { useState, useEffect } from 'react'
 
 import './App.css'
@@ -25,6 +26,7 @@ function App() {
 
 
   const totalFeedback = feedbackOptions.good + feedbackOptions.neutral + feedbackOptions.bad;
+  const positiveFeedback  = Math.round((feedbackOptions.good / totalFeedback) * 100)
 
   const updateFeedback = feedbackType => {
     setFeedbackOptions( {
@@ -38,7 +40,7 @@ function App() {
     <>
       <Description />
       <Options totalFeedback={totalFeedback} updateFeedback={updateFeedback} setFeedbackOptions={setFeedbackOptions} />
-      {totalFeedback ?<Feedback feedbackOptions={feedbackOptions} /> : <div>No feedback yet</div>}
+      {totalFeedback ?<Feedback feedbackOptions={feedbackOptions} positiveFeedback={positiveFeedback} totalFeedback={totalFeedback} /> : <Notification/>}
     </>
   )
 }
